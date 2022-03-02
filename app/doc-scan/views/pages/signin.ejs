@@ -1,0 +1,56 @@
+<%- include('layout/header'); -%>
+<div class="container">
+<h1>Sign In</h1>
+<form id="signin">
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input required type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="Enter email">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input required type="password" class="form-control" id="password" placeholder="Password">
+    </div>
+    <div id="alert"></div>
+    <button type="submit" class="btn btn-primary">Submit</button> OR
+    <a href="/signup" class="btn btn-primary">Create an account</a>
+</form>
+</div>
+<script>
+  $(document).ready(function() {
+    $("#signin").submit(async function(e){
+          e.preventDefault();
+          var email = $("#email").val();
+          var password = $("#password").val();
+          if(email !== "" && password !== ""){
+            await axios.post('/processLogin', {
+                email: email,
+                password: password
+            })
+            .then(function (response) {
+              console.log(response);
+              $('#alert').html(`<div class="alert alert-success" role="alert"> Login successful! </div>`);
+              window.location.href="/";
+            }).catch(function (error) {
+                if (error.response) {
+                  // The request was made and the server responded with a status code
+                  // that falls out of the range of 2xx
+                  console.log(error.response.data);
+                  console.log(error.response.status);
+                  console.log(error.response.headers);
+                  $('#alert').html(`<div class="alert alert-danger" role="alert"> ${error.response.data} </div>`);
+                } else if (error.request) {
+                  // The request was made but no response was received
+                  // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+                  // http.ClientRequest in node.js
+                  console.log(error.request);
+                } else {
+                  // Something happened in setting up the request that triggered an Error
+                  console.log('Error', error.message);
+                }
+                console.log(error.config);
+            });
+        }
+    });
+  });
+</script>
+<%- include('layout/footer'); -%>
