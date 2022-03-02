@@ -5,18 +5,6 @@
 1) [Requirements](#requirements) -
 Check you have what you need
 
-1) [Installing the SDK](#installing-the-sdk) -
-How to install our SDK
-
-1) [Setup](#setup) -
-Setup required before using the Yoti services
-
-1) [Products](#products) -
-Links to more information about the products offered by the Yoti SDK
-
-1) [Support](#support) -
-Please feel free to reach out
-
 ## Requirements
 
 ### Node version
